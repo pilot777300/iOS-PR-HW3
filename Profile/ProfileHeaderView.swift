@@ -17,9 +17,9 @@ class ProfileHeaderView: UIView {
     
     var pictureData = [PicturesData]()
     
-    private lazy var profileView = UIImageView()
-    private lazy var status = UILabel ()
-    private lazy var newStatus = UILabel()
+     lazy var profileView = UIImageView()
+     lazy var status = UILabel ()
+     lazy var newStatus = UILabel()
     private lazy var setStatus = UITextField ()
     private lazy var changeStatusButton = UIButton()
     private lazy var changedText: String = ""
@@ -43,7 +43,7 @@ class ProfileHeaderView: UIView {
         self.addSubview(profileView)
           
           status.backgroundColor = .systemGray5
-          status.text = "Пилот квадрокоптера"
+          status.text = "Пилот Баранкин"
           status.font = UIFont.boldSystemFont(ofSize: 20)
           status.translatesAutoresizingMaskIntoConstraints = false
           self.addSubview(status)

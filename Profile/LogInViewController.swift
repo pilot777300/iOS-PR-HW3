@@ -10,8 +10,8 @@ import UIKit
 class LogInViewController: UIViewController {
  
     private lazy var logo = UIImageView()
- private lazy var email = UITextField()
- private lazy var password = UITextField()
+  lazy var email = UITextField()
+  lazy var password = UITextField()
  private lazy var loginButton = UIButton()
 
     override func viewDidLoad() {
@@ -88,7 +88,20 @@ class LogInViewController: UIViewController {
    
     @objc func loginButtonPressed(sender: UIButton) {
         let profileViewController = ProfileViewController()
-       self.navigationController?.pushViewController(profileViewController, animated: true)
+        #if DEBUG
+        let y = TestUserService()
+        #else
+        let y = CurrentUserService()
+        #endif
+        let q = y.authorise(login: email.text, password: password.text )
+        if (q != nil) { self.navigationController?.pushViewController(profileViewController, animated: true)
+        }  else {
+                        let alert = UIAlertController(title: "Ошибка",
+                                                      message: "Неправильный логин или пароль",
+                                                      preferredStyle: .alert)
+                         alert.addAction(UIAlertAction(title: "Попробую снова", style: .cancel, handler: nil))
+                        self.present(alert, animated: true)
+                    }
    }
     
     private func constraints() {

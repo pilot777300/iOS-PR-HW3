@@ -7,15 +7,7 @@
 
 import UIKit
 import StorageService
-//import Foundation
 
-//public struct Post {
-//    var author: String?
-//    var description: String?
-//    var image: String?
-//    var lokes: Int?
-//    var views: Int?
-//}
 
 class ProfileViewController: UIViewController {
    
@@ -29,15 +21,20 @@ class ProfileViewController: UIViewController {
      
     public var postData = [Post]()
    
- 
-      
+    var user = User()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         #if DEBUG
-        view.backgroundColor = .red
+        user.fullName = "Fake account"
+        user.status = "Fake status"
+        user.avatar = UIImage(named: "arrow.png") ?? UIImage(systemName: "person")!
+        
         #else
-        view.backgroundColor = .yellow
+        user.fullName = "Герой неба"
+        user.status = "Отдыхаю"
+        user.avatar = UIImage(named: "A330-300.jpg") ?? UIImage(systemName: "person")!
         #endif
         
           postData.append(Post(author: "Elon Musk", description: "Ну классный самолет. Ветерок на посадке только слишком сильно дунул", image: "A330-300.jpg", lokes: 12, views: 33))
@@ -47,7 +44,6 @@ class ProfileViewController: UIViewController {
         
         setTableView()
         setConstraints()
-       
     }
 
         func setTableView() {
@@ -72,7 +68,7 @@ class ProfileViewController: UIViewController {
             
             ])
         }
-}
+    }
     
 extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
     
@@ -97,6 +93,9 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
        
         let view = ProfileHeaderView()
         view.backgroundColor = .systemGray5
+        view.status.text = user.fullName
+        view.profileView.image = user.avatar
+        view.newStatus.text = user.status
         let q = PhotosTableViewCell()
         let editButton = UIButton(frame: CGRect(x:0, y:190, width:400, height:150))
         editButton.addTarget(self, action: #selector(showGallery), for: UIControl.Event.touchUpInside)
